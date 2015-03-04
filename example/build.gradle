@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+mainClassName = "de.bitdroid.githash.example.Main"
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'de.bitdroid.githash:plugin:0.1.0'
+    }
+}
+
+apply plugin: 'de.bitdroid.githash'
+
+gitHashSettings {
+    packageName = "de.bitdroid.githash.example"
+}
+
+idea {
+    module {
+        sourceDirs += new File(project.projectDir.toString() + "/target/generated-sources/githash/")
+    }
+}
