@@ -10,18 +10,21 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'de.bitdroid.githash:plugin:0.1.0'
+        classpath 'de.bitdroid.githash:plugin:0.1.1'
     }
 }
 
 apply plugin: 'de.bitdroid.githash'
 
-gitHashSettings {
-    packageName = "de.bitdroid.githash.example"
+def generatedSourcesDir = file('target/generated-sources/java')
+
+gitHash {
+    packageName = 'de.bitdroid.githash.example'
+    outputDir = generatedSourcesDir
 }
 
 idea {
     module {
-        sourceDirs += new File(project.projectDir.toString() + "/target/generated-sources/githash/")
+        sourceDirs += generatedSourcesDir
     }
 }

@@ -13,6 +13,7 @@ public class GitHashTask extends DefaultTask {
     @InputFile File gitHeadFile = new File("${gitFolder}HEAD")
     @InputDirectory File gitRefsDir = new File("${gitFolder}refs/")
     @OutputDirectory File outputDir
+    String packageName = "my.package"
 
     @TaskAction
     public void execute(IncrementalTaskInputs inputs) {
@@ -30,7 +31,7 @@ public class GitHashTask extends DefaultTask {
         try {
             new GitHashCreator().createJavaFile(
                     commitHash,
-                    project.gitHashSettings.packageName.toString(),
+                    packageName,
                     outputDir.getPath())
         } catch (IOException e) {
             throw new GradleScriptException("failed to write classes to file", e)
