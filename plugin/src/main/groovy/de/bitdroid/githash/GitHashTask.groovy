@@ -12,7 +12,7 @@ public class GitHashTask extends DefaultTask {
     String gitFolder = "${project.rootProject.projectDir}/.git/"
     @InputFile File gitHeadFile = new File("${gitFolder}HEAD")
     @InputDirectory File gitRefsDir = new File("${gitFolder}refs/")
-    @OutputDirectory File outputDir
+    @OutputDirectory File outputDir = new File("${project.projectDir}/target/generated-sources/githash")
     String packageName = "my.package"
 
     @TaskAction

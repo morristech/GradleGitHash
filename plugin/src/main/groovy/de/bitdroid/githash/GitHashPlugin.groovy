@@ -8,8 +8,6 @@ public final class GitHashPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         def task = project.tasks.create('gitHash', GitHashTask)
-        task.outputDir = new File("${project.projectDir}/target/generated-sources/githash")
-
         boolean hasJava = project.plugins.hasPlugin JavaPlugin
         if (hasJava) {
             project.compileJava.dependsOn task
