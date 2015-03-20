@@ -20,7 +20,7 @@ buildscript {
 apply plugin: 'de.bitdroid.githash'
 
 gitHashSettings {
-    packageName = "<my.fancy.package"
+    packageName = "<my.fancy.package>"
 }
 ```
 
@@ -38,7 +38,7 @@ public class Main {
 }
 ```
 
-See the [```example```](https://github.com/Maddoc42/GradleGitHash/tree/master/example) directory for a full example.
+See also the [```example```](https://github.com/Maddoc42/GradleGitHash/tree/master/example) directory.
 
 ## License
 Copyright 2015 Philipp Eichhorn 
