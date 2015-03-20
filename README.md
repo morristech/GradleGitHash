@@ -19,7 +19,7 @@ buildscript {
 
 apply plugin: 'de.bitdroid.githash'
 
-gitHashSettings {
+gitHash {
     packageName = "<my.fancy.package>"
 }
 ```
@@ -30,15 +30,30 @@ The task will generate a file called ```GitConstants.java``` under ```target/gen
 
 ```Java
 public class Main {
-
 	public static void main(String[] args) {
 		System.out.println("The current git commit has is " + GitConstants.COMMIT_HASH);
 	}
-
 }
 ```
 
 See also the [```example```](https://github.com/Maddoc42/GradleGitHash/tree/master/example) directory.
+
+
+## Configuration
+
+The default settings for the plugin are as follows:
+
+```groovy
+gitHash {
+    packageName = "my.package"
+    outputDir = file('target/generated-sources/githash')
+
+    def gitFolder = "${project.rootProject.projectDir}/.git"
+    gitHeadFile = file(gitFolder + '/HEAD')
+    gitRefsDir = file(gitFolder + '/refs/')
+}
+```
+
 
 ## License
 Copyright 2015 Philipp Eichhorn 
