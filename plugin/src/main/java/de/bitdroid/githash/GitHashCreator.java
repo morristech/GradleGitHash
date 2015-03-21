@@ -13,22 +13,25 @@ import javax.lang.model.element.Modifier;
 
 public final class GitHashCreator {
 
-	public void createJavaFile(String hash, String packageName, String outDirName) throws IOException {
+	public void createJavaFile(
+			String hash,
+			String version,
+			String packageName,
+			String outDirName) throws IOException {
+
 		MethodSpec constructor = MethodSpec
 				.constructorBuilder()
 				.addModifiers(Modifier.PRIVATE)
 				.build();
 
-		FieldSpec hashField = FieldSpec
-				.builder(String.class, "COMMIT_HASH")
-				.addModifiers(Modifier.PUBLIC, Modifier.FINAL, Modifier.STATIC)
-				.initializer("$S", hash)
-				.build();
+		FieldSpec hashField = createField("COMMIT_HASH", hash);
+		FieldSpec versionField = createField("VERSION", version);
 
 		TypeSpec constantsClass = TypeSpec
 				.classBuilder("GitConstants")
 				.addModifiers(Modifier.PUBLIC, Modifier.FINAL)
 				.addField(hashField)
+				.addField(versionField)
 				.addMethod(constructor)
 				.build();
 
@@ -37,6 +40,16 @@ public final class GitHashCreator {
 				.build();
 
 		javaFile.writeTo(new File(outDirName));
+	}
+
+
+	private FieldSpec createField(String fieldName, String value) {
+		return FieldSpec
+				.builder(String.class, fieldName)
+				.addModifiers(Modifier.PUBLIC, Modifier.FINAL, Modifier.STATIC)
+				.initializer("$S", value)
+				.build();
+
 	}
 
 }

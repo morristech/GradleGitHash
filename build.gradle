@@ -6,6 +6,14 @@ buildscript {
 
 
 allprojects {
+    version = '0.1.2'
+    group = 'de.bitdroid.githash'
+}
+
+
+subprojects {
+    apply plugin: 'java'
+
     repositories {
         jcenter()
     }

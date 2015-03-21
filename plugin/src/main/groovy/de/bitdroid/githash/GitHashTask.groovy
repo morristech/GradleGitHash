@@ -14,6 +14,7 @@ public class GitHashTask extends DefaultTask {
     @InputDirectory File gitRefsDir = new File("${gitFolder}refs/")
     @OutputDirectory File outputDir = new File("${project.projectDir}/target/generated-sources/githash")
     String packageName = "my.package"
+    String version = project.version
 
     @TaskAction
     public void execute(IncrementalTaskInputs inputs) {
@@ -31,6 +32,7 @@ public class GitHashTask extends DefaultTask {
         try {
             new GitHashCreator().createJavaFile(
                     commitHash,
+                    version,
                     packageName,
                     outputDir.getPath())
         } catch (IOException e) {
