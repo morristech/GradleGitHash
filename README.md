@@ -26,15 +26,21 @@ gitHash {
 
 This will add a ```gitHash``` task to Gradle which depends on ```compileJava``` and listens to changes in the ```<projectDir>/.git/HEAD``` file and the ```<projectDir>/.git/refs/``` directrory.
 
-The task will generate a file called ```GitConstants.java``` under ```target/generated-sources/githash/<my.fancy.pacakge>``` which can be used like any other Java class, e.g.
+The task will generate a file called ```GitConstants.java``` under ```target/generated-sources/githash/<my.fancy.pacakge>``` which looks like
 
 ```Java
-public class Main {
-	public static void main(String[] args) {
-		System.out.println("The current git commit has is " + GitConstants.COMMIT_HASH);
-	}
+package de.bitdroid.githash.example;
+
+public final class GitConstants {
+
+  public static final String COMMIT_HASH = "70c5a1f5c6fc";
+  public static final String VERSION = "0.1.2";
+
+  private GitConstants() { }
 }
 ```
+
+where `COMMIT_HASH` is the current git commit hash and `VERSION` and project version set in the gradle build file (if any).
 
 See also the [```example```](https://github.com/Maddoc42/GradleGitHash/tree/master/example) directory.
 
@@ -47,6 +53,7 @@ The default settings for the plugin are as follows:
 gitHash {
     packageName = "my.package"
     outputDir = file('target/generated-sources/githash')
+    version = project.version
 
     def gitFolder = "${project.rootProject.projectDir}/.git"
     gitHeadFile = file(gitFolder + '/HEAD')
